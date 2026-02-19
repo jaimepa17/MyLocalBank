@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyLocalBank</string>
+    
+    <!-- Widget Strings -->
+    <string name="widget_balance_label">Balance Mensual</string>
+    <string name="widget_balance_desc">Muestra tu resumen de ingresos, gastos y balance del mes actual.</string>
+    <string name="widget_quick_add_label">Gasto Rápido</string>
+    <string name="widget_quick_add_desc">Acceso directo para registrar un gasto ingresando solo el monto.</string>
+</resources>

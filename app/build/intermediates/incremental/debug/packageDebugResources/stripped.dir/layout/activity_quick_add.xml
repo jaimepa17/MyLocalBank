@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_widget">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="⚡ Gasto Rápido"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FF0F7A3F"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etMonto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Monto (C$)"
+        android:inputType="numberDecimal"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FF0F9B58"
+        android:padding="8dp"/>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GUARDAR"
+        android:backgroundTint="#FF0F9B58"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+</LinearLayout>

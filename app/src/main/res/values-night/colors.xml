@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Background (dark: dungeon) -->
+    <color name="bg_main">#FF1A1A2E</color>
+    <color name="bg_card">#FF16213E</color>
+    <color name="bg_card_alt">#FF0F3460</color>
+
+    <!-- Balance card -->
+    <color name="balance_start">#FF0B3D2E</color>
+    <color name="balance_end">#FF0A2E22</color>
+    <color name="balance_text_secondary">#AAE8D5B7</color>
+    <color name="balance_badge_bg">#33F5C842</color>
+
+    <!-- Text (parchment tones) -->
+    <color name="text_primary">#FFE8D5B7</color>
+    <color name="text_secondary">#AA9B8E76</color>
+    <color name="text_dark">#FFE8D5B7</color>
+    <color name="text_heading">#FFF5C842</color>
+
+    <!-- Rupee green -->
+    <color name="green_accent">#FF0F9B58</color>
+    <color name="green_badge_bg">#330F9B58</color>
+    <color name="green_text">#FF2ECC71</color>
+
+    <!-- Heart red -->
+    <color name="red_accent">#FFE74C3C</color>
+    <color name="red_text">#FFE74C3C</color>
+
+    <!-- Gold -->
+    <color name="gold">#FFF5C842</color>
+    <color name="gold_dark">#FFD4A520</color>
+
+    <!-- Category icons -->
+    <color name="icon_bg">#FF1A3A5C</color>
+    <color name="icon_color">#FFF5C842</color>
+
+    <!-- Progress bar -->
+    <color name="progress_bg">#FF2A2A4E</color>
+    <color name="progress_fill_start">#FF0F9B58</color>
+    <color name="progress_fill_end">#FF2ECC71</color>
+
+    <!-- Transaction -->
+    <color name="transaction_icon_bg">#FF1A3A5C</color>
+    <color name="transaction_date">#AA9B8E76</color>
+
+    <!-- Nav -->
+    <color name="nav_inactive">#AA6B5B4B</color>
+    <color name="nav_active">#FFF5C842</color>
+    <color name="nav_bg">#FF0F0F23</color>
+
+    <!-- Header -->
+    <color name="avatar_bg">#FF0F9B58</color>
+    <color name="icon_btn_bg">#FF1A3A5C</color>
+    <color name="header_icon">#FFF5C842</color>
+
+    <!-- Link -->
+    <color name="link_blue">#FFF5C842</color>
+    <color name="link_bg">#33F5C842</color>
+
+    <!-- Card border -->
+    <color name="card_border">#FFF5C842</color>
+    <color name="card_border_subtle">#44F5C842</color>
+    <color name="divider">#33FFFFFF</color>
+</resources>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/page_padding"
+            android:paddingEnd="@dimen/page_padding"
+            android:paddingTop="@dimen/page_padding"
+            android:paddingBottom="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/PixelText.Title"
+                android:text="GASTOS"
+                android:textSize="@dimen/text_title" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/gold"
+                android:layout_marginTop="@dimen/spacing_sm" />
+        </LinearLayout>
+
+        <!-- Month Navigation -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingStart="@dimen/page_padding"
+            android:paddingEnd="@dimen/page_padding"
+            android:paddingTop="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm">
+
+            <TextView
+                android:id="@+id/btnMesAnterior"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="◀"
+                android:textSize="18sp"
+                android:textColor="@color/gold"
+                android:background="@drawable/bg_stat_card"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/tvMesActual"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/PixelText.Body"
+                android:text="FEBRERO 2026"
+                android:textSize="@dimen/text_body"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/btnMesSiguiente"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="▶"
+                android:textSize="18sp"
+                android:textColor="@color/gold"
+                android:background="@drawable/bg_stat_card"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/page_padding">
+
+                <!-- ===== TOTAL CARD ===== -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="@dimen/spacing_xl"
+                    android:layout_marginBottom="@dimen/spacing_md">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Small"
+                        android:text="▸ TOTAL DEL MES"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/tvTotalGastado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Amount"
+                        android:text="C$ 0.00"
+                        android:textColor="@color/red_accent"
+                        android:layout_marginTop="@dimen/spacing_xs" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/spacing_xs">
+
+                        <TextView
+                            android:id="@+id/tvDesgloseFijos"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="monospace"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_secondary"
+                            android:text="Fijos: C$ 0.00" />
+
+                        <TextView
+                            android:id="@+id/tvDesgloseVariables"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="monospace"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_secondary"
+                            android:text="Variables: C$ 0.00" />
+                    </LinearLayout>
+
+                    <!-- Effective / Pending row -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvTotalEfectivo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="monospace"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/red_accent"
+                            android:text="✓ Efectivo: C$ 0.00" />
+
+                        <TextView
+                            android:id="@+id/tvTotalPendiente"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="monospace"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_secondary"
+                            android:text="⏳ Pendiente: C$ 0.00" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ===== FIXED EXPENSES (applied this month) ===== -->
+                <TextView
+                    android:id="@+id/tvTitleFijos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Body"
+                    android:text="📌 Fijos del mes"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutGastosFijos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/spacing_md" />
+
+                <!-- ===== VARIABLE EXPENSES  ===== -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Body"
+                    android:text="📋 Gastos registrados"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="8dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRegistros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Empty state -->
+                <LinearLayout
+                    android:id="@+id/emptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="@dimen/spacing_xl"
+                    android:gravity="center"
+                    android:minHeight="@dimen/btn_min_height"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📝"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Body"
+                        android:text="Sin gastos · Toca + para agregar"
+                        android:textSize="@dimen/text_body"
+                        android:layout_marginTop="@dimen/spacing_sm" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarGasto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/page_padding"
+        android:contentDescription="Agregar gasto"
+        app:tint="@color/bg_main"
+        app:backgroundTint="@color/green_accent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

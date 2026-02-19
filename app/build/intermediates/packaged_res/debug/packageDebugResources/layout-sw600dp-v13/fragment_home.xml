@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/page_padding">
+
+        <!-- ══════ HEADER ══════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/PixelText.Title"
+            android:text="CONTROL DE FINANZAS"
+            android:textSize="@dimen/text_title" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="2dp"
+            android:background="@color/gold"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md" />
+
+        <!-- ══════ BALANCE CARD ══════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_balance_card"
+            android:padding="@dimen/spacing_xl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/PixelText.Small"
+                android:text="▸ SALDO ACTUAL"
+                android:textColor="@color/balance_text_secondary"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/PixelText.Amount"
+                android:text="C$ 0.00"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/spacing_xs" />
+
+            <TextView
+                android:id="@+id/tvBalanceUsd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="≈ $0.00 USD"
+                android:textSize="11sp"
+                android:textColor="@color/balance_text_secondary"
+                android:layout_marginTop="2dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/balance_badge_bg"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:layout_marginBottom="@dimen/spacing_md" />
+
+            <!-- Ingresos / Gastos row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Ingresos -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Small"
+                        android:text="▲ INGRESOS"
+                        android:textColor="@color/balance_text_secondary"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/tvTotalIngresos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Body"
+                        android:text="C$ 0.00"
+                        android:textColor="#FF4CAF50"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/spacing_xs" />
+                </LinearLayout>
+
+                <!-- Gastos -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Small"
+                        android:text="▼ GASTOS"
+                        android:textColor="@color/balance_text_secondary"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/tvTotalGastos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PixelText.Body"
+                        android:text="C$ 0.00"
+                        android:textColor="@color/red_accent"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/spacing_xs" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Pending labels -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/balance_badge_bg"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <TextView
+                android:id="@+id/tvPendienteIngresar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="📥 Pendiente ingresar: C$ 0.00"
+                android:textSize="10sp"
+                android:textColor="@color/balance_text_secondary"
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/tvPendientePagar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="📤 Pendiente a pagar: C$ 0.00"
+                android:textSize="10sp"
+                android:textColor="@color/balance_text_secondary" />
+        </LinearLayout>
+
+        <!-- ══════ ROW 1: Charts (2 columns) ══════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginTop="@dimen/spacing_md">
+
+            <!-- BAR CHART (Left) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_xl"
+                android:layout_marginEnd="@dimen/spacing_sm">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Title"
+                    android:text="INGRESOS VS GASTOS"
+                    android:textSize="@dimen/text_body" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="@color/gold"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </LinearLayout>
+
+            <!-- PIE CHART (Right) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_xl"
+                android:layout_marginStart="@dimen/spacing_sm">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Title"
+                    android:text="GASTOS FIJOS"
+                    android:textSize="@dimen/text_body" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="@color/gold"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══════ ROW 2: Summaries (2 columns) ══════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_md">
+
+            <!-- RESUMEN INGRESOS (Left) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_xl"
+                android:layout_marginEnd="@dimen/spacing_sm">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Title"
+                    android:text="♦ INGRESOS"
+                    android:textSize="@dimen/text_body" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="@color/gold"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <LinearLayout
+                    android:id="@+id/layoutIngresosResumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvEmptyIngresos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:text="Sin fuentes configuradas"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- RESUMEN GASTOS (Right) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_xl"
+                android:layout_marginStart="@dimen/spacing_sm">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Title"
+                    android:text="♦ GASTOS FIJOS"
+                    android:textSize="@dimen/text_body" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:background="@color/gold"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <LinearLayout
+                    android:id="@+id/layoutGastosResumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvEmptyGastos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:text="Sin gastos configurados"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

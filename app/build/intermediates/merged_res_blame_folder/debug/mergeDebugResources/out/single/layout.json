@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_fuente_ingreso.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_fuente_ingreso.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_gasto_regular.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_gasto_regular.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_gasto_fijo.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_gasto_fijo.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_ingreso.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_ingreso.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/fragment_home.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/widget_quick_add.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/widget_quick_add.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_registro_gasto.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_registro_gasto.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/fragment_ingresos.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/fragment_ingresos.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/fragment_gastos.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/fragment_gastos.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_registro_gasto.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_registro_gasto.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/fragment_config.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/fragment_config.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_gasto_regular.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_gasto_regular.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_registro_ingreso.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_registro_ingreso.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_gasto_rapido.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_gasto_rapido.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/widget_balance.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/widget_balance.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_category.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_category.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_transaction.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_transaction.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_tarjeta.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_tarjeta.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/bottom_sheet_numpad.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/bottom_sheet_numpad.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/widget_finance_summary.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/widget_finance_summary.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_gasto_fijo.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_gasto_fijo.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_categoria.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_categoria.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_categoria.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_categoria.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/activity_quick_add.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/activity_quick_add.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_fuente_ingreso.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_fuente_ingreso.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/item_tarjeta.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/item_tarjeta.xml"
+    },
+    {
+        "merged": "com.example.mylocalbank.app-mergeDebugResources-3:/layout/dialog_registro_ingreso.xml",
+        "source": "com.example.mylocalbank.app-main-6:/layout/dialog_registro_ingreso.xml"
+    }
+]

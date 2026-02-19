@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <!-- Transaction icon circle -->
+    <FrameLayout
+        android:layout_width="@dimen/transaction_icon_size"
+        android:layout_height="@dimen/transaction_icon_size"
+        android:background="@drawable/bg_icon_circle">
+
+        <ImageView
+            android:id="@+id/ivTransactionIcon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:contentDescription="Transacción"
+            android:src="@android:drawable/ic_menu_gallery" />
+    </FrameLayout>
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <!-- Row: description + amount -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvTransactionDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Transacción"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/tvTransactionAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0.00"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/red_text" />
+        </LinearLayout>
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/tvTransactionDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fecha"
+            android:textSize="12sp"
+            android:textColor="@color/transaction_date"
+            android:layout_marginTop="3dp" />
+    </LinearLayout>
+</LinearLayout>

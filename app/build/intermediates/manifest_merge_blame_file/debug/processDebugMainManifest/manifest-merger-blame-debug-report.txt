@@ -1,0 +1,196 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.mylocalbank"
+4    android:versionCode="2"
+5    android:versionName="1.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
+11-->[androidx.biometric:biometric:1.2.0-alpha05] C:\Users\patacon\.gradle\caches\8.13\transforms\88bb27463211491ca6b7b8aacb2f26cc\transformed\biometric-1.2.0-alpha05\AndroidManifest.xml:22:5-72
+11-->[androidx.biometric:biometric:1.2.0-alpha05] C:\Users\patacon\.gradle\caches\8.13\transforms\88bb27463211491ca6b7b8aacb2f26cc\transformed\biometric-1.2.0-alpha05\AndroidManifest.xml:22:22-69
+12    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+12-->[androidx.biometric:biometric:1.2.0-alpha05] C:\Users\patacon\.gradle\caches\8.13\transforms\88bb27463211491ca6b7b8aacb2f26cc\transformed\biometric-1.2.0-alpha05\AndroidManifest.xml:25:5-74
+12-->[androidx.biometric:biometric:1.2.0-alpha05] C:\Users\patacon\.gradle\caches\8.13\transforms\88bb27463211491ca6b7b8aacb2f26cc\transformed\biometric-1.2.0-alpha05\AndroidManifest.xml:25:22-71
+13
+14    <permission
+14-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+15        android:name="com.example.mylocalbank.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="com.example.mylocalbank.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:5:5-51:19
+21        android:allowBackup="true"
+21-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:6:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.12.0] C:\Users\patacon\.gradle\caches\8.13\transforms\575401631422c300fd9c4e754efc4301\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+23        android:dataExtractionRules="@xml/data_extraction_rules"
+23-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:7:9-65
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:fullBackupContent="@xml/backup_rules"
+26-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:8:9-54
+27        android:icon="@mipmap/ic_launcher"
+27-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:9:9-43
+28        android:label="@string/app_name"
+28-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:10:9-41
+29        android:roundIcon="@mipmap/ic_launcher_round"
+29-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:11:9-54
+30        android:supportsRtl="true"
+30-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:12:9-35
+31        android:theme="@style/Theme.App_control_finanzas" >
+31-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:13:9-58
+32        <activity
+32-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:15:9-22:20
+33            android:name="com.example.mylocalbank.MainActivity"
+33-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:16:13-41
+34            android:exported="true" >
+34-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:17:13-36
+35            <intent-filter>
+35-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:18:13-21:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:19:17-69
+36-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:19:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:20:17-77
+38-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:20:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:24:9-28:40
+42            android:name="com.example.mylocalbank.QuickAddActivity"
+42-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:25:13-45
+43            android:exported="false"
+43-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:28:13-37
+44            android:label="Gasto Rápido"
+44-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:27:13-41
+45            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+45-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:26:13-64
+46
+47        <receiver
+47-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:30:9-39:20
+48            android:name="com.example.mylocalbank.widget.BalanceWidgetProvider"
+48-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:31:13-57
+49            android:exported="true" >
+49-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:32:13-36
+50            <intent-filter>
+50-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:33:13-35:29
+51                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+51-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:34:17-84
+51-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:34:25-81
+52            </intent-filter>
+53
+54            <meta-data
+54-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:36:13-38:63
+55                android:name="android.appwidget.provider"
+55-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:37:17-58
+56                android:resource="@xml/widget_balance_info" />
+56-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:38:17-60
+57        </receiver>
+58        <receiver
+58-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:41:9-50:20
+59            android:name="com.example.mylocalbank.widget.QuickAddWidgetProvider"
+59-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:42:13-58
+60            android:exported="true" >
+60-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:43:13-36
+61            <intent-filter>
+61-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:33:13-35:29
+62                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+62-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:34:17-84
+62-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:34:25-81
+63            </intent-filter>
+64
+65            <meta-data
+65-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:36:13-38:63
+66                android:name="android.appwidget.provider"
+66-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:37:17-58
+67                android:resource="@xml/widget_quick_add_info" />
+67-->C:\Proyectos Android\App_control_finanzas\app\src\main\AndroidManifest.xml:38:17-60
+68        </receiver>
+69
+70        <provider
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+71            android:name="androidx.startup.InitializationProvider"
+71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+72            android:authorities="com.example.mylocalbank.androidx-startup"
+72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+73            android:exported="false" >
+73-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+74            <meta-data
+74-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+75                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+76                android:value="androidx.startup" />
+76-->[androidx.emoji2:emoji2:1.2.0] C:\Users\patacon\.gradle\caches\8.13\transforms\9c8b25bb15fffb41321a222e85b4464d\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+77            <meta-data
+77-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\patacon\.gradle\caches\8.13\transforms\44830ca1bd07ffcc009def7d2ae209a6\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+78                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+78-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\patacon\.gradle\caches\8.13\transforms\44830ca1bd07ffcc009def7d2ae209a6\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+79                android:value="androidx.startup" />
+79-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\patacon\.gradle\caches\8.13\transforms\44830ca1bd07ffcc009def7d2ae209a6\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+80            <meta-data
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+81                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+82                android:value="androidx.startup" />
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+83        </provider>
+84
+85        <service
+85-->[androidx.room:room-runtime:2.6.1] C:\Users\patacon\.gradle\caches\8.13\transforms\5475b2a8fc9ec23dbfe6aa906984c463\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+86            android:name="androidx.room.MultiInstanceInvalidationService"
+86-->[androidx.room:room-runtime:2.6.1] C:\Users\patacon\.gradle\caches\8.13\transforms\5475b2a8fc9ec23dbfe6aa906984c463\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+87            android:directBootAware="true"
+87-->[androidx.room:room-runtime:2.6.1] C:\Users\patacon\.gradle\caches\8.13\transforms\5475b2a8fc9ec23dbfe6aa906984c463\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+88            android:exported="false" />
+88-->[androidx.room:room-runtime:2.6.1] C:\Users\patacon\.gradle\caches\8.13\transforms\5475b2a8fc9ec23dbfe6aa906984c463\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+89
+90        <receiver
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+92            android:directBootAware="false"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+93            android:enabled="true"
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+94            android:exported="true"
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+95            android:permission="android.permission.DUMP" >
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+101            </intent-filter>
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+103                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+106                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\patacon\.gradle\caches\8.13\transforms\1eaf2818302d73ef9e6875165a21d723\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+107            </intent-filter>
+108        </receiver>
+109    </application>
+110
+111</manifest>

@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.mylocalbank.app-mergeDebugResources-2:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\patacon\\.gradle\\caches\\8.13\\transforms\\892a3e98b0bc6f9870b45fb252aa5d49\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.App_control_finanzas" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorOnPrimary">@color/bg_main</item>
+        <item name="colorSecondary">@color/green_accent</item>
+        <item name="android:statusBarColor">@color/bg_main</item>
+        <item name="android:navigationBarColor">@color/nav_bg</item>
+        <!-- Dark Mode: Light text on status bar -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.App_control_finanzas" parent="Base.Theme.App_control_finanzas" />
+</resources>

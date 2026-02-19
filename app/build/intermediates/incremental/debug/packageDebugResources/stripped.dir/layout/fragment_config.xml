@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/page_padding"
+        android:paddingEnd="@dimen/page_padding"
+        android:paddingTop="@dimen/page_padding"
+        android:paddingBottom="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/PixelText.Title"
+            android:text="CONFIGURACIÓN"
+            android:textSize="@dimen/text_title" />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="@color/gold"
+            android:layout_marginTop="@dimen/spacing_sm" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_padding">
+
+            <!-- ===== TARJETAS SECTION ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/PixelText.Body"
+                    android:text="💳 Mis Tarjetas"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/btnAgregarTarjeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_min_height"
+                    android:gravity="center"
+                    android:text="+ AGREGAR"
+                    android:fontFamily="monospace"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_accent"
+                    android:background="@drawable/bg_trend_badge"
+                    android:paddingStart="@dimen/spacing_md"
+                    android:paddingEnd="@dimen/spacing_md"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTarjetas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateTarjetas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:gravity="center"
+                android:minHeight="@dimen/btn_min_height"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:textSize="@dimen/text_small"
+                    android:text="Sin tarjetas • Toca + AGREGAR"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/card_border_subtle"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <!-- ===== FUENTES DE INGRESO SECTION ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/PixelText.Body"
+                    android:text="💰 Fuentes de Ingreso"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/btnAgregarFuente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_min_height"
+                    android:gravity="center"
+                    android:text="+ AGREGAR"
+                    android:fontFamily="monospace"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_accent"
+                    android:background="@drawable/bg_trend_badge"
+                    android:paddingStart="@dimen/spacing_md"
+                    android:paddingEnd="@dimen/spacing_md"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFuentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateFuentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:gravity="center"
+                android:minHeight="@dimen/btn_min_height"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:textSize="@dimen/text_small"
+                    android:text="Sin fuentes • Toca + AGREGAR"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/card_border_subtle"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <!-- ===== GASTOS FIJOS SECTION ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/PixelText.Body"
+                    android:text="🏠 Gastos Fijos"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/btnAgregarGastoFijo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_min_height"
+                    android:gravity="center"
+                    android:text="+ AGREGAR"
+                    android:fontFamily="monospace"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_accent"
+                    android:background="@drawable/bg_trend_badge"
+                    android:paddingStart="@dimen/spacing_md"
+                    android:paddingEnd="@dimen/spacing_md"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGastosFijos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateGastosFijos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:gravity="center"
+                android:minHeight="@dimen/btn_min_height"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:textSize="@dimen/text_small"
+                    android:text="Sin gastos fijos • Toca + AGREGAR"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+
+
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/card_border_subtle"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <!-- ===== CATEGORÍAS GASTOS SECTION ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/PixelText.Body"
+                    android:text="🏷️ Categorías"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/btnAgregarCategoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_min_height"
+                    android:gravity="center"
+                    android:text="+ AGREGAR"
+                    android:fontFamily="monospace"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_accent"
+                    android:background="@drawable/bg_trend_badge"
+                    android:paddingStart="@dimen/spacing_md"
+                    android:paddingEnd="@dimen/spacing_md"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:gravity="center"
+                android:minHeight="@dimen/btn_min_height"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:textSize="@dimen/text_small"
+                    android:text="Sin categorías • Toca + AGREGAR"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <!-- Advanced Configuration Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONFIGURACIÓN AVANZADA"
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+            <!-- Card: Respaldo y Restauración -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Respaldo y Restauración"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Guarda tu información en un archivo local o restaura una copia de seguridad."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/btnBackup"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_button_secondary"
+                            android:gravity="center"
+                            android:text="💾 RESPALDAR"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/btnRestore"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_button_secondary"
+                            android:gravity="center"
+                            android:text="📂 RESTAURAR"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Seguridad -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Seguridad"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Protege el acceso a la aplicación."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bloqueo con Biometría"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchBiometric"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

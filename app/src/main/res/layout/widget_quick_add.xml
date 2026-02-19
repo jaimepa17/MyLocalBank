@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_quick_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/bg_widget_pill"
+    android:paddingStart="12dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_add_circle"
+        app:tint="#FF0F9B58"
+        android:contentDescription="Icon"
+        android:layout_marginEnd="8dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gasto Rápido"
+        android:textColor="#FFE8D5B7"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"/>
+    
+</LinearLayout>

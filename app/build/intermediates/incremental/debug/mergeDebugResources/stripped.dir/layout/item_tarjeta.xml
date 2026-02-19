@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_stat_card"
+    android:padding="@dimen/spacing_md"
+    android:layout_marginBottom="@dimen/spacing_sm"
+    android:minHeight="@dimen/btn_min_height">
+
+    <!-- Color indicator -->
+    <View
+        android:id="@+id/viewColor"
+        android:layout_width="6dp"
+        android:layout_height="40dp"
+        android:background="@color/green_accent" />
+
+    <!-- Card info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/spacing_md">
+
+        <TextView
+            android:id="@+id/tvAlias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alias"
+            android:fontFamily="monospace"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/spacing_xs">
+
+            <TextView
+                android:id="@+id/tvBanco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Banco"
+                android:fontFamily="monospace"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  •  "
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tvUltimos4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="••••"
+                android:fontFamily="monospace"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Type badge -->
+    <TextView
+        android:id="@+id/tvTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIPO"
+        android:fontFamily="monospace"
+        android:textSize="@dimen/text_small"
+        android:textStyle="bold"
+        android:textColor="@color/gold"
+        android:background="@drawable/bg_account_badge"
+        android:layout_marginEnd="@dimen/spacing_sm" />
+
+    <!-- Delete button with min touch target -->
+    <TextView
+        android:id="@+id/btnDelete"
+        android:layout_width="@dimen/btn_min_height"
+        android:layout_height="@dimen/btn_min_height"
+        android:gravity="center"
+        android:text="✕"
+        android:textSize="16sp"
+        android:textColor="@color/red_accent"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>

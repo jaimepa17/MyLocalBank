@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="btn_min_height">44dp</dimen>
+    <dimen name="category_icon_size">28dp</dimen>
+    <dimen name="corner_balance">6dp</dimen>
+    <dimen name="corner_card">4dp</dimen>
+    <dimen name="corner_pill">4dp</dimen>
+    <dimen name="icon_circle_size">40dp</dimen>
+    <dimen name="page_padding">14dp</dimen>
+    <dimen name="pixel_border">2dp</dimen>
+    <dimen name="progress_height">10dp</dimen>
+    <dimen name="spacing_lg">16dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_sm">6dp</dimen>
+    <dimen name="spacing_xl">18dp</dimen>
+    <dimen name="spacing_xs">3dp</dimen>
+    <dimen name="text_body">11sp</dimen>
+    <dimen name="text_small">9sp</dimen>
+    <dimen name="text_title">14sp</dimen>
+    <dimen name="transaction_icon_size">38dp</dimen>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default phone portrait -->
+    <dimen name="corner_card">4dp</dimen>
+    <dimen name="corner_balance">6dp</dimen>
+    <dimen name="corner_pill">4dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">22dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="icon_circle_size">44dp</dimen>
+    <dimen name="avatar_size">48dp</dimen>
+    <dimen name="transaction_icon_size">44dp</dimen>
+    <dimen name="category_icon_size">32dp</dimen>
+    <dimen name="progress_height">12dp</dimen>
+    <dimen name="pixel_border">2dp</dimen>
+    <dimen name="page_padding">20dp</dimen>
+    <dimen name="btn_min_height">48dp</dimen>
+    <dimen name="text_title">16sp</dimen>
+    <dimen name="text_body">12sp</dimen>
+    <dimen name="text_small">10sp</dimen>
+</resources>

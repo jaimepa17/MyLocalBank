@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_stat_card"
+    android:padding="@dimen/spacing_md"
+    android:layout_marginBottom="@dimen/spacing_sm"
+    android:minHeight="@dimen/btn_min_height">
+
+    <!-- Type indicator -->
+    <TextView
+        android:id="@+id/tvIcono"
+        android:layout_width="@dimen/icon_circle_size"
+        android:layout_height="@dimen/icon_circle_size"
+        android:gravity="center"
+        android:text="💼"
+        android:textSize="20sp"
+        android:background="@drawable/bg_icon_circle" />
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/spacing_md">
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:fontFamily="monospace"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/spacing_xs">
+
+            <TextView
+                android:id="@+id/tvTipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tvDia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_secondary"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Amount -->
+    <LinearLayout
+        android:id="@+id/layoutMonto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvMonto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            android:textColor="@color/green_accent" />
+
+        <TextView
+            android:id="@+id/tvMoneda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_secondary" />
+    </LinearLayout>
+</LinearLayout>
