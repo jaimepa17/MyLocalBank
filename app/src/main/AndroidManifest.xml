@@ -27,6 +27,12 @@
             android:label="Gasto Rápido"
             android:exported="false" />
 
+        <activity
+            android:name=".SaldoInicialActivity"
+            android:label="Saldo de Apertura"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
         <receiver
             android:name=".widget.BalanceWidgetProvider"
             android:exported="true">

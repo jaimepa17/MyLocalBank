@@ -893,11 +893,15 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             combine(
+                            db.saldoInicialDao().getSaldoInicial(),
                             db.fuenteIngresoDao().getActivas(),
                             db.registroIngresoDao().getByDateRange(start, end),
                             db.gastoFijoDao().getActivos(), // ALL active, not filtered by day
                             db.registroGastoDao().getByDateRange(start, end)
-                    ) { fuentes, regIngresos, gastosFijos, regGastos ->
+                    ) { saldo, fuentes, regIngresos, gastosFijos, regGastos ->
+
+                // ── SALDO INICIAL ──
+                val saldoBase = saldo?.monto ?: 0.0
 
                 // ── INCOME: fixed sources ──
                 var ingresosEfectivos = 0.0
@@ -942,11 +946,17 @@ class HomeFragment : Fragment() {
                     if (r.fecha <= now) gastosEfectivos += cor else gastosPendientes += cor
                 }
 
-                arrayOf(ingresosEfectivos, ingresosPendientes, gastosEfectivos, gastosPendientes)
+                arrayOf(
+                        saldoBase,
+                        ingresosEfectivos,
+                        ingresosPendientes,
+                        gastosEfectivos,
+                        gastosPendientes
+                )
             }
                     .collectLatest { totals ->
-                        val (ingEfect, ingPend, gasEfect, gasPend) = totals
-                        updateBalanceCard(ingEfect, ingPend, gasEfect, gasPend)
+                        val (saldoBase, ingEfect, ingPend, gasEfect, gasPend) = totals
+                        updateBalanceCard(saldoBase, ingEfect, ingPend, gasEfect, gasPend)
                         // Bar chart shows total (effective + pending) for the full monthly picture
                         updateBarChart(ingEfect + ingPend, gasEfect + gasPend)
                     }
@@ -961,13 +971,14 @@ class HomeFragment : Fragment() {
     // ─── Update balance card ─────────────────────────────────────────
 
     private fun updateBalanceCard(
+            saldoBase: Double,
             ingresosEfectivos: Double,
             ingresosPendientes: Double,
             gastosEfectivos: Double,
             gastosPendientes: Double
     ) {
-        // Saldo actual = only effective amounts
-        val balance = ingresosEfectivos - gastosEfectivos
+        // Saldo actual = base + incomes - expenses (only effective amounts)
+        val balance = saldoBase + ingresosEfectivos - gastosEfectivos
         binding.tvBalance.text = "C$ ${nf.format(balance)}"
 
         // Show total income/expenses (effective + pending)

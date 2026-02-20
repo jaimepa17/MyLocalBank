@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mylocalbank.data.*
 import com.example.mylocalbank.databinding.FragmentConfigBinding
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import android.database.sqlite.SQLiteConstraintException
 import androidx.fragment.app.activityViewModels
+import android.content.Intent
 
 class ConfigFragment : Fragment() {
 
@@ -64,9 +66,9 @@ class ConfigFragment : Fragment() {
         setupTarjetas()
         setupFuentes()
         setupGastosFijos()
-        setupGastosFijos()
         setupCategorias()
         setupBackupRestore()
+        setupSaldoInicial()
     }
 
     // ====================== TARJETAS ======================
@@ -685,6 +687,33 @@ class ConfigFragment : Fragment() {
                 // If turning OFF: Just disable (could require auth too, but keeping simple)
                 com.example.mylocalbank.utils.SecurityManager.setBiometricEnabled(requireContext(), false)
             }
+        }
+    }
+
+    private fun setupSaldoInicial() {
+        val cardSaldo = binding.root.findViewById<androidx.cardview.widget.CardView>(R.id.cardSaldoInicial)
+        val btnConfigurar = binding.root.findViewById<TextView>(R.id.btnConfigurarSaldo)
+
+        if (cardSaldo == null || btnConfigurar == null) return
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            combine(
+                db.gastoFijoDao().getAll(),
+                viewModel.fuentesAll,
+                db.saldoInicialDao().getSaldoInicial()
+            ) { gastos, fuentes, saldo ->
+                Triple(gastos, fuentes, saldo)
+            }.collectLatest { (gastos, fuentes, saldo) ->
+                if (gastos.isNotEmpty() && fuentes.isNotEmpty() && saldo == null) {
+                    cardSaldo.visibility = View.VISIBLE
+                } else {
+                    cardSaldo.visibility = View.GONE
+                }
+            }
+        }
+
+        btnConfigurar.setOnClickListener {
+            startActivity(Intent(requireContext(), SaldoInicialActivity::class.java))
         }
     }
 
