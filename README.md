@@ -6,20 +6,35 @@
 
 La aplicación se centra en la simplicidad y la privacidad del usuario, funcionando completamente de forma local en tu dispositivo sin necesidad de conexión a internet ni registro en servicios externos.
 
+### Vistas de la Aplicación
+
+![Dashboard](docs/images/app_dashboard.png)
+*Vista principal (Dashboard)*
+
+![Ingresos](docs/images/app_ingresos.png)
+*Sección de ingresos y notificaciones*
+
+![Modo Tablet](docs/images/app_tablet.png)
+*Interfaz responsiva en tablets*
+
 ## Características Principales
 
 * **Registro Rápido de Movimientos:** Añade gastos e ingresos fácilmente.
+* **Saldo Inicial Personalizado:** Define un balance de apertura para comenzar a registrar desde un punto de partida exacto.
+* **Pantallas Dinámicas y Scroll Independiente:** Listas de registros de ingresos y gastos que se desplazan fluidamente de manera independiente para una excelente experiencia de usuario.
+* **Notificaciones de Día de Pago Configurables:** Activa o desactiva notificaciones personalizadas por cada fuente de ingreso.
+* **Diseño Responsivo:** Interfaz adaptativa que ajusta componentes y visualizaciones para teléfonos, orientación horizontal (landscape) y tablets.
 * **Categorización Personalizada:** Organiza tus finanzas mediante categorías (Comida, Transporte, Hogar, etc.) para un mejor seguimiento.
 * **Balance Mensual:** Visualiza el estado actual de tus finanzas mes a mes.
 * **Widgets de Pantalla de Inicio:**
   * **Widget de Balance:** Un resumen rápido de tus ingresos, gastos y saldo total directamente en tu pantalla principal.
   * **Widget de Gasto Rápido:** Acceso directo para registrar nuevos gastos al instante sin abrir la aplicación completa.
-* **Privacidad Total:** Todos los datos se almacenan localmente en tu dispositivo utilizando Room Database. Tus datos financieros son tuyos y de nadie más.
+* **Privacidad Total y Alto Rendimiento:** Todos los datos se almacenan localmente utilizando Room Database, el cual está optimizado con índices de búsqueda para acceso inmediato.
 
 ## Tecnologías Utilizadas
 
 * **Lenguaje:** Kotlin
-* **UI:** Android XML Layouts, Material Design
+* **UI:** Android XML Layouts, Material Design 3
 * **Almacenamiento Local:** Room Persistence Library
 * **Arquitectura:** MVVM (Model-View-ViewModel)
 
