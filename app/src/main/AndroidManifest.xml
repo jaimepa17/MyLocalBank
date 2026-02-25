@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_control_finanzas"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,6 +26,12 @@
             android:name=".QuickAddActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
             android:label="Gasto Rápido"
+            android:exported="false" />
+
+        <activity
+            android:name=".SaldoInicialActivity"
+            android:label="Saldo de Apertura"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <receiver

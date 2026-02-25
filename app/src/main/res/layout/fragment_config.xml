@@ -323,6 +323,54 @@
             android:textColor="@color/text_secondary"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"/>
+
+            <!-- Card: Saldo Inicial -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSaldoInicial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saldo Inicial de Apertura"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Configura tu saldo base. Requiere 1 ingreso y 1 gasto registrado. Accion única."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:id="@+id/btnConfigurarSaldo"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_button_secondary"
+                        android:gravity="center"
+                        android:text="⚖️ CONFIGURAR AHORA"
+                        android:textColor="@color/text_primary"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <!-- Card: Respaldo y Restauración -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

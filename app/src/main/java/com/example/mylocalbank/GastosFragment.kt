@@ -16,24 +16,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mylocalbank.data.AppDatabase
+import com.example.mylocalbank.data.Categoria
 import com.example.mylocalbank.data.GastoFijo
 import com.example.mylocalbank.data.RegistroGasto
 import com.example.mylocalbank.data.Tarjeta
-import com.example.mylocalbank.data.Categoria
 import com.example.mylocalbank.databinding.FragmentGastosBinding
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import androidx.fragment.app.activityViewModels
 
 class GastosFragment : Fragment() {
 
@@ -42,7 +41,8 @@ class GastosFragment : Fragment() {
     }
 
     private var _binding: FragmentGastosBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     private lateinit var db: AppDatabase
     private lateinit var recordsAdapter: RegistroGastoAdapter
@@ -54,25 +54,41 @@ class GastosFragment : Fragment() {
     // Current month being viewed
     private var currentYear = Calendar.getInstance().get(Calendar.YEAR)
     private var currentMonth = Calendar.getInstance().get(Calendar.MONTH)
+    private var isFijosExpanded = false // Collapsed by default (show 2)
 
-    private val nf = NumberFormat.getNumberInstance(Locale("es", "NI")).apply {
-        minimumFractionDigits = 2
-        maximumFractionDigits = 2
-    }
+    private var cachedFijos: List<GastoFijo> = emptyList()
+    private var cachedRegistros: List<RegistroGasto> = emptyList()
 
-    private val monthNames = arrayOf(
-        "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
-        "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
-    )
+    private val nf =
+            NumberFormat.getNumberInstance(Locale("es", "NI")).apply {
+                minimumFractionDigits = 2
+                maximumFractionDigits = 2
+            }
+
+    private val monthNames =
+            arrayOf(
+                    "ENERO",
+                    "FEBRERO",
+                    "MARZO",
+                    "ABRIL",
+                    "MAYO",
+                    "JUNIO",
+                    "JULIO",
+                    "AGOSTO",
+                    "SEPTIEMBRE",
+                    "OCTUBRE",
+                    "NOVIEMBRE",
+                    "DICIEMBRE"
+            )
 
     private fun toCor(monto: Double, moneda: String): Double {
         return if (moneda == "USD") monto * USD_TO_COR else monto
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGastosBinding.inflate(inflater, container, false)
         return binding.root
@@ -89,9 +105,7 @@ class GastosFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.fabAgregarGasto.setOnClickListener {
-            showRegistroDialog(null)
-        }
+        binding.fabAgregarGasto.setOnClickListener { showRegistroDialog(null) }
         binding.btnMesAnterior.setOnClickListener {
             currentMonth--
             if (currentMonth < 0) {
@@ -110,6 +124,17 @@ class GastosFragment : Fragment() {
             updateMonthLabel()
             observeData()
         }
+
+        binding.btnToggleFijos.setOnClickListener {
+            isFijosExpanded = !isFijosExpanded
+
+            // Rotate arrow
+            val rotation = if (isFijosExpanded) 0f else 180f
+            binding.ivArrowFijos.animate().rotation(rotation).setDuration(200).start()
+
+            // Update UI with partial/full list
+            updateGastosFijosSection(cachedFijos, cachedRegistros)
+        }
     }
 
     private fun updateMonthLabel() {
@@ -119,10 +144,11 @@ class GastosFragment : Fragment() {
     /** Returns the effective max day to check for diaCobro based on selected month. */
     private fun getEffectiveDay(): Int {
         val now = Calendar.getInstance()
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.YEAR, currentYear)
-            set(Calendar.MONTH, currentMonth)
-        }
+        val cal =
+                Calendar.getInstance().apply {
+                    set(Calendar.YEAR, currentYear)
+                    set(Calendar.MONTH, currentMonth)
+                }
         val lastDayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
 
         // For past months: all fixed expenses apply (return 31 so all pass the query)
@@ -138,15 +164,16 @@ class GastosFragment : Fragment() {
     }
 
     private fun getMonthRange(): Pair<Long, Long> {
-        val calendar = Calendar.getInstance().apply {
-            set(Calendar.YEAR, currentYear)
-            set(Calendar.MONTH, currentMonth)
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
+        val calendar =
+                Calendar.getInstance().apply {
+                    set(Calendar.YEAR, currentYear)
+                    set(Calendar.MONTH, currentMonth)
+                    set(Calendar.DAY_OF_MONTH, 1)
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
         val start = calendar.timeInMillis
 
         calendar.add(Calendar.MONTH, 1)
@@ -156,19 +183,22 @@ class GastosFragment : Fragment() {
     }
 
     private fun setupAdapters() {
-        recordsAdapter = RegistroGastoAdapter(
-            onEdit = { showRegistroDialog(it) },
-            onDelete = { confirmDelete(it) },
-            getTarjeta = { id -> if (id != null) tarjetasCache.find { it.id == id } else null },
-            getCategoria = { id -> categoriasCache.find { it.id == id } }
-        )
+        recordsAdapter =
+                RegistroGastoAdapter(
+                        onEdit = { showRegistroDialog(it) },
+                        onDelete = { confirmDelete(it) },
+                        getTarjeta = { id ->
+                            if (id != null) tarjetasCache.find { it.id == id } else null
+                        },
+                        getCategoria = { id -> categoriasCache.find { it.id == id } }
+                )
         binding.rvRegistros.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRegistros.adapter = recordsAdapter
     }
 
-    private fun showRegistroDialog(registro: RegistroGasto?) {
-        val dialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.dialog_registro_gasto, null)
+    private fun showRegistroDialog(registro: RegistroGasto?, templateFijo: GastoFijo? = null) {
+        val dialogView =
+                LayoutInflater.from(requireContext()).inflate(R.layout.dialog_registro_gasto, null)
 
         val tvTitle = dialogView.findViewById<TextView>(R.id.tvDialogTitle)
         val spinnerMoneda = dialogView.findViewById<Spinner>(R.id.spinnerMoneda)
@@ -186,6 +216,10 @@ class GastosFragment : Fragment() {
         if (registro != null) {
             tvTitle.text = "EDITAR GASTO"
             // Edit mode always shows advanced fields to see what's being edited
+            layoutAvanzado.visibility = View.VISIBLE
+            btnToggleAvanzado.text = "Ocultar opciones avanzadas ▲"
+        } else if (templateFijo != null) {
+            tvTitle.text = "REGISTRAR PAGO FIJO"
             layoutAvanzado.visibility = View.VISIBLE
             btnToggleAvanzado.text = "Ocultar opciones avanzadas ▲"
         }
@@ -211,21 +245,24 @@ class GastosFragment : Fragment() {
 
         btnFecha.setOnClickListener {
             DatePickerDialog(
-                requireContext(),
-                { _, year, month, dayOfMonth ->
-                    selectedDate.set(year, month, dayOfMonth)
-                    btnFecha.text = "📅 ${dateFormat.format(selectedDate.time)}"
-                },
-                selectedDate.get(Calendar.YEAR),
-                selectedDate.get(Calendar.MONTH),
-                selectedDate.get(Calendar.DAY_OF_MONTH)
-            ).show()
+                            requireContext(),
+                            { _, year, month, dayOfMonth ->
+                                selectedDate.set(year, month, dayOfMonth)
+                                btnFecha.text = "📅 ${dateFormat.format(selectedDate.time)}"
+                            },
+                            selectedDate.get(Calendar.YEAR),
+                            selectedDate.get(Calendar.MONTH),
+                            selectedDate.get(Calendar.DAY_OF_MONTH)
+                    )
+                    .show()
         }
 
         // Moneda spinner
         val monedas = arrayOf("COR (C$)", "USD ($)")
-        spinnerMoneda.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, monedas)
-            .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        spinnerMoneda.adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, monedas).also {
+                    it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                }
 
         // Load Tarjetas and Categorias
         viewLifecycleOwner.lifecycleScope.launch {
@@ -233,15 +270,34 @@ class GastosFragment : Fragment() {
             val tarjetaNames = mutableListOf("Ninguna")
             tarjetaNames.addAll(tarjetas.map { "${it.alias} (••${it.ultimos4})" })
 
-            spinnerTarjeta.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, tarjetaNames)
-                .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+            spinnerTarjeta.adapter =
+                    ArrayAdapter(
+                                    requireContext(),
+                                    android.R.layout.simple_spinner_item,
+                                    tarjetaNames
+                            )
+                            .also {
+                                it.setDropDownViewResource(
+                                        android.R.layout.simple_spinner_dropdown_item
+                                )
+                            }
 
             // Categories
             val allCats = viewModel.categoriasAll.first()
-            val expenseCats = allCats.filter { it.tipo == "GASTO" || it.tipo == "AMBOS" }
+            val expenseCats =
+                    allCats.filter { (it.tipo == "GASTO" || it.tipo == "AMBOS") && it.activa }
             val categoriaNames: List<String> = expenseCats.map { "${it.icono} ${it.nombre}" }
-            spinnerCategoria.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriaNames)
-                .also { adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+            spinnerCategoria.adapter =
+                    ArrayAdapter(
+                                    requireContext(),
+                                    android.R.layout.simple_spinner_item,
+                                    categoriaNames
+                            )
+                            .also { adapter ->
+                                adapter.setDropDownViewResource(
+                                        android.R.layout.simple_spinner_dropdown_item
+                                )
+                            }
 
             // Pre-fill if editing
             if (registro != null) {
@@ -258,30 +314,49 @@ class GastosFragment : Fragment() {
                     val idx = tarjetas.indexOfFirst { it.id == registro.tarjetaId }
                     if (idx >= 0) spinnerTarjeta.setSelection(idx + 1)
                 }
+            } else if (templateFijo != null) {
+                etMonto.setText(String.format("%.2f", templateFijo.monto))
+                spinnerMoneda.setSelection(if (templateFijo.moneda == "USD") 1 else 0)
+                etDescripcion.setText(templateFijo.nombre)
+                etTienda.setText("Pago Gasto Fijo")
+
+                // Select Category
+                val catIdx = expenseCats.indexOfFirst { it.id == templateFijo.categoriaId }
+                if (catIdx >= 0) spinnerCategoria.setSelection(catIdx)
+
+                if (templateFijo.tarjetaId != null) {
+                    val idx = tarjetas.indexOfFirst { it.id == templateFijo.tarjetaId }
+                    if (idx >= 0) spinnerTarjeta.setSelection(idx + 1)
+                }
             }
         }
 
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView).setCancelable(true).create()
+        val dialog =
+                AlertDialog.Builder(requireContext())
+                        .setView(dialogView)
+                        .setCancelable(true)
+                        .create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         btnCancelar.setOnClickListener { dialog.dismiss() }
         btnGuardar.setOnClickListener {
             val montoStr = etMonto.text.toString().trim()
             val moneda = if (spinnerMoneda.selectedItemPosition == 1) "USD" else "COR"
-            
+
             val isAdvanced = layoutAvanzado.visibility == View.VISIBLE
 
             val monto = montoStr.toDoubleOrNull()
             if (monto == null || monto <= 0) {
-                Toast.makeText(requireContext(), "Ingresa un monto válido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Ingresa un monto válido", Toast.LENGTH_SHORT)
+                        .show()
                 return@setOnClickListener
             }
             val montoRedondeado = Math.round(monto * 100.0) / 100.0
 
             viewLifecycleOwner.lifecycleScope.launch {
                 val allCats = viewModel.categoriasAll.first()
-                val expenseCats = allCats.filter { it.tipo == "GASTO" || it.tipo == "AMBOS" }
+                val expenseCats =
+                        allCats.filter { (it.tipo == "GASTO" || it.tipo == "AMBOS") && it.activa }
                 val tarjetas = db.tarjetaDao().getActivas().first()
 
                 // Variables determined by mode
@@ -293,7 +368,9 @@ class GastosFragment : Fragment() {
 
                 if (isAdvanced) {
                     val catPos = spinnerCategoria.selectedItemPosition
-                    val selectedCat = if (catPos >= 0 && catPos < expenseCats.size) expenseCats[catPos] else null
+                    val selectedCat =
+                            if (catPos >= 0 && catPos < expenseCats.size) expenseCats[catPos]
+                            else null
                     categoriaId = selectedCat?.id ?: 1L
 
                     // Validation Logic
@@ -309,11 +386,21 @@ class GastosFragment : Fragment() {
                         val tiendaInput = etTienda.text.toString().trim()
 
                         if (descInput.isEmpty()) {
-                            Toast.makeText(requireContext(), "Descripción es requerida para esta categoría", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                            requireContext(),
+                                            "Descripción es requerida para esta categoría",
+                                            Toast.LENGTH_SHORT
+                                    )
+                                    .show()
                             return@launch
                         }
                         if (tiendaInput.isEmpty()) {
-                            Toast.makeText(requireContext(), "Tienda es requerida para esta categoría", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                            requireContext(),
+                                            "Tienda es requerida para esta categoría",
+                                            Toast.LENGTH_SHORT
+                                    )
+                                    .show()
                             return@launch
                         }
                         descripcion = descInput
@@ -323,10 +410,10 @@ class GastosFragment : Fragment() {
                     fecha = selectedDate.timeInMillis
 
                     val tarjetaPos = spinnerTarjeta.selectedItemPosition
-                    tarjetaId = if (tarjetaPos > 0 && tarjetaPos <= tarjetas.size) {
-                        tarjetas[tarjetaPos - 1].id
-                    } else null
-
+                    tarjetaId =
+                            if (tarjetaPos > 0 && tarjetaPos <= tarjetas.size) {
+                                tarjetas[tarjetaPos - 1].id
+                            } else null
                 } else {
                     // Quick Mode: Defaults (Implicitly Gastos Rápidos)
                     descripcion = "Gasto Rápido"
@@ -341,29 +428,32 @@ class GastosFragment : Fragment() {
                 }
 
                 if (registro != null) {
-                    db.registroGastoDao().update(
-                        registro.copy(
-                            monto = montoRedondeado,
-                            moneda = moneda,
-                            descripcion = descripcion,
-                            tienda = tienda,
-                            tarjetaId = tarjetaId,
-                            fecha = fecha,
-                            categoriaId = categoriaId
-                        )
-                    )
+                    db.registroGastoDao()
+                            .update(
+                                    registro.copy(
+                                            monto = montoRedondeado,
+                                            moneda = moneda,
+                                            descripcion = descripcion,
+                                            tienda = tienda,
+                                            tarjetaId = tarjetaId,
+                                            fecha = fecha,
+                                            categoriaId = categoriaId
+                                    )
+                            )
                 } else {
-                    db.registroGastoDao().insert(
-                        RegistroGasto(
-                            monto = montoRedondeado,
-                            moneda = moneda,
-                            descripcion = descripcion,
-                            tienda = tienda,
-                            tarjetaId = tarjetaId,
-                            fecha = fecha,
-                            categoriaId = categoriaId
-                        )
-                    )
+                    db.registroGastoDao()
+                            .insert(
+                                    RegistroGasto(
+                                            monto = montoRedondeado,
+                                            moneda = moneda,
+                                            descripcion = descripcion,
+                                            tienda = tienda,
+                                            tarjetaId = tarjetaId,
+                                            fecha = fecha,
+                                            categoriaId = categoriaId,
+                                            gastoFijoId = templateFijo?.id
+                                    )
+                            )
                 }
                 dialog.dismiss()
             }
@@ -373,8 +463,6 @@ class GastosFragment : Fragment() {
 
     private fun observeData() {
         val (start, end) = getMonthRange()
-        val now = System.currentTimeMillis()
-        val todayDay = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH)
 
         // Observe tarjetas cache
         // Observe tarjetas cache
@@ -396,116 +484,161 @@ class GastosFragment : Fragment() {
         // Observe variable + fixed expenses with effective/pending split
         viewLifecycleOwner.lifecycleScope.launch {
             combine(
-                db.registroGastoDao().getByDateRange(start, end),
-                db.gastoFijoDao().getActivos()          // ALL active, not filtered by day
-            ) { registros, fijos ->
-                Pair(registros, fijos)
-            }.collectLatest { (registros, fijos) ->
-                // Update variable expenses list (show all)
-                recordsAdapter.submitList(registros)
-                val isEmpty = registros.isEmpty()
-                binding.emptyState.visibility = if (isEmpty) View.VISIBLE else View.GONE
-                binding.rvRegistros.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                            db.registroGastoDao().getByDateRange(start, end),
+                            db.gastoFijoDao().getActivos() // ALL active, not filtered by day
+                    ) { registros, fijos -> Pair(registros, fijos) }
+                    .collectLatest { (registros, fijos) ->
+                        // Update variable expenses list (show all)
+                        recordsAdapter.submitList(registros)
+                        val isEmpty = registros.isEmpty()
+                        binding.emptyState.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                        binding.rvRegistros.visibility = if (isEmpty) View.GONE else View.VISIBLE
 
-                // Split variable expenses: effective vs pending
-                val varEfectivo = registros.filter { it.fecha <= now }.sumOf { toCor(it.monto, it.moneda) }
-                val varPendiente = registros.filter { it.fecha > now }.sumOf { toCor(it.monto, it.moneda) }
+                        // Only records exist as real money
+                        val totalEfectivo = registros.sumOf { toCor(it.monto, it.moneda) }
 
-                // Split fixed expenses: Calculate based on Month/Year relation
-                val viewedYM = currentYear * 12 + currentMonth
-                val currentCal = java.util.Calendar.getInstance()
-                val currentYM = currentCal.get(java.util.Calendar.YEAR) * 12 + currentCal.get(java.util.Calendar.MONTH)
-                
-                val fijEfectivo: Double
-                val fijPendiente: Double
+                        // Pendientes are only fixed templates without a record
+                        var totalPendiente = 0.0
+                        for (g in fijos) {
+                            if (!registros.any { it.gastoFijoId == g.id }) {
+                                totalPendiente += toCor(g.monto, g.moneda)
+                            }
+                        }
 
-                if (viewedYM < currentYM) {
-                    // Past Month: All Effective
-                    fijEfectivo = fijos.sumOf { toCor(it.monto, it.moneda) }
-                    fijPendiente = 0.0
-                } else if (viewedYM > currentYM) {
-                    // Future Month: All Pending
-                    fijEfectivo = 0.0
-                    fijPendiente = fijos.sumOf { toCor(it.monto, it.moneda) }
-                } else {
-                    // Current Month: Use Day Logic
-                    fijEfectivo = fijos.filter { it.diaCobro <= todayDay }.sumOf { toCor(it.monto, it.moneda) }
-                    fijPendiente = fijos.filter { it.diaCobro > todayDay }.sumOf { toCor(it.monto, it.moneda) }
-                }
+                        // Breakdown: Fijos Cobrados vs Variables libres
+                        val totalFijosCobrados =
+                                registros.filter { it.gastoFijoId != null }.sumOf {
+                                    toCor(it.monto, it.moneda)
+                                }
+                        val totalVariables = totalEfectivo - totalFijosCobrados
 
-                val totalVariables = varEfectivo + varPendiente
-                val totalFijos = fijEfectivo + fijPendiente
-                val totalEfectivo = varEfectivo + fijEfectivo
-                val totalPendiente = varPendiente + fijPendiente
+                        binding.tvDesgloseVariables.text =
+                                "Variables: C$ ${nf.format(totalVariables)}"
+                        binding.tvDesgloseFijos.text =
+                                "Fijos cobrad.: C$ ${nf.format(totalFijosCobrados)}"
+                        binding.tvTotalGastado.text = "C$ ${nf.format(totalEfectivo)}"
+                        binding.tvTotalEfectivo.text = "✓ Efectivo: C$ ${nf.format(totalEfectivo)}"
+                        binding.tvTotalPendiente.text =
+                                "⏳ Pendiente: C$ ${nf.format(totalPendiente)}"
 
-                binding.tvDesgloseVariables.text = "Variables: C$ ${nf.format(totalVariables)}"
-                binding.tvDesgloseFijos.text = "Fijos: C$ ${nf.format(totalFijos)}"
-                binding.tvTotalGastado.text = "C$ ${nf.format(totalFijos + totalVariables)}"
-                binding.tvTotalEfectivo.text = "✓ Efectivo: C$ ${nf.format(totalEfectivo)}"
-                binding.tvTotalPendiente.text = "⏳ Pendiente: C$ ${nf.format(totalPendiente)}"
-
-                updateGastosFijosSection(fijos)
-            }
+                        cachedFijos = fijos
+                        cachedRegistros = registros
+                        updateGastosFijosSection(fijos, registros)
+                    }
         }
     }
 
-    private fun updateGastosFijosSection(fijos: List<GastoFijo>) {
+    private fun updateGastosFijosSection(fijos: List<GastoFijo>, registros: List<RegistroGasto>) {
+        // Indicators
+        binding.ivArrowFijos.rotation = if (isFijosExpanded) 0f else 180f
+
+        // Only show arrow if there are more than 2 items to expand
+        binding.ivArrowFijos.visibility = if (fijos.size > 2) View.VISIBLE else View.GONE
+
         binding.layoutGastosFijos.removeAllViews()
+        binding.layoutGastosFijos.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
         if (fijos.isEmpty()) {
-            val emptyTv = TextView(requireContext()).apply {
-                text = "Sin gastos fijos cobrados"
-                typeface = Typeface.MONOSPACE
-                textSize = 11f
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
-                gravity = Gravity.CENTER
-                setPadding(0, 16, 0, 16)
-            }
+            binding.layoutGastosFijos.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            val emptyTv =
+                    TextView(requireContext()).apply {
+                        text = "Sin gastos fijos cobrados"
+                        typeface = Typeface.MONOSPACE
+                        textSize = 11f
+                        setTextColor(
+                                ContextCompat.getColor(requireContext(), R.color.text_secondary)
+                        )
+                        gravity = Gravity.CENTER
+                        setPadding(0, 16, 0, 16)
+                    }
             binding.layoutGastosFijos.addView(emptyTv)
             return
         }
 
         val dp = resources.displayMetrics.density
-        fijos.forEach { gf ->
-            val row = LinearLayout(requireContext()).apply {
-                orientation = LinearLayout.HORIZONTAL
-                gravity = Gravity.CENTER_VERTICAL
-                background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_stat_card)
-                setPadding((12 * dp).toInt(), (10 * dp).toInt(), (12 * dp).toInt(), (10 * dp).toInt())
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = (4 * dp).toInt() }
+
+        // Apply limit if collapsed
+        val displayList =
+                if (!isFijosExpanded && fijos.size > 2) {
+                    fijos.take(2)
+                } else {
+                    fijos
+                }
+
+        displayList.forEach { gf ->
+            val isPagado = registros.any { it.gastoFijoId == gf.id }
+            val amountColor = if (isPagado) R.color.green_accent else R.color.red_accent
+            val paidIcon = if (isPagado) "✅" else "📌"
+
+            val row =
+                    LinearLayout(requireContext()).apply {
+                        orientation = LinearLayout.HORIZONTAL
+                        gravity = Gravity.CENTER_VERTICAL
+                        setPadding(
+                                (12 * dp).toInt(),
+                                (10 * dp).toInt(),
+                                (12 * dp).toInt(),
+                                (10 * dp).toInt()
+                        )
+                        background =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.bg_stat_card)
+                    }
+
+            val lp =
+                    LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            .apply { bottomMargin = (4 * dp).toInt() }
+            row.layoutParams = lp
+
+            if (!isPagado) {
+                row.setOnClickListener { showRegistroDialog(null, gf) }
+            } else {
+                row.alpha = 0.5f // Dimmed
             }
 
             // Icon
-            row.addView(TextView(requireContext()).apply {
-                text = "📌"
-                textSize = 16f
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { marginEnd = (8 * dp).toInt() }
-            })
+            row.addView(
+                    TextView(requireContext()).apply {
+                        text = paidIcon
+                        textSize = 16f
+                        layoutParams =
+                                LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                        )
+                                        .apply { marginEnd = (8 * dp).toInt() }
+                    }
+            )
 
             // Name + day
-            row.addView(TextView(requireContext()).apply {
-                text = "${gf.nombre} (día ${gf.diaCobro})"
-                typeface = Typeface.MONOSPACE
-                textSize = 11f
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary))
-                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            })
+            row.addView(
+                    TextView(requireContext()).apply {
+                        text = "${gf.nombre} (día ${gf.diaCobro})"
+                        typeface = Typeface.MONOSPACE
+                        textSize = 11f
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary))
+                        layoutParams =
+                                LinearLayout.LayoutParams(
+                                        0,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                                        1f
+                                )
+                    }
+            )
 
             // Amount
             val symbol = if (gf.moneda == "USD") "$" else "C$"
-            row.addView(TextView(requireContext()).apply {
-                text = "-$symbol${nf.format(gf.monto)}"
-                typeface = Typeface.MONOSPACE
-                textSize = 11f
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.red_accent))
-                setTypeface(typeface, Typeface.BOLD)
-            })
+            row.addView(
+                    TextView(requireContext()).apply {
+                        text = "-$symbol${nf.format(gf.monto)}"
+                        typeface = Typeface.MONOSPACE
+                        textSize = 11f
+                        setTextColor(ContextCompat.getColor(requireContext(), amountColor))
+                        setTypeface(typeface, Typeface.BOLD)
+                    }
+            )
 
             binding.layoutGastosFijos.addView(row)
         }
@@ -515,16 +648,16 @@ class GastosFragment : Fragment() {
         val desc = if (registro.descripcion.isNotEmpty()) registro.descripcion else "Gasto"
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Eliminar registro")
-            .setMessage("¿Eliminar \"$desc\" (C$ ${nf.format(registro.monto)})?")
-            .setPositiveButton("Eliminar") { _, _ ->
-                viewLifecycleOwner.lifecycleScope.launch {
-                    db.registroGastoDao().delete(registro)
-                    Toast.makeText(requireContext(), "Eliminado", Toast.LENGTH_SHORT).show()
+                .setTitle("Eliminar registro")
+                .setMessage("¿Eliminar \"$desc\" (C$ ${nf.format(registro.monto)})?")
+                .setPositiveButton("Eliminar") { _, _ ->
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        db.registroGastoDao().delete(registro)
+                        Toast.makeText(requireContext(), "Eliminado", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
+                .setNegativeButton("Cancelar", null)
+                .show()
     }
 
     override fun onDestroyView() {

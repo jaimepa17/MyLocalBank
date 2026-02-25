@@ -82,26 +82,23 @@
                 android:background="@drawable/bg_stat_card" />
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/page_padding"
+            android:paddingEnd="@dimen/page_padding"
+            android:paddingTop="@dimen/page_padding"
+            android:paddingBottom="0dp">
 
+            <!-- ===== TOTALES CARD ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/page_padding">
-
-                <!-- ===== TOTALES CARD ===== -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_balance_card"
-                    android:padding="@dimen/spacing_xl"
-                    android:layout_marginBottom="@dimen/spacing_md">
+                android:background="@drawable/bg_balance_card"
+                android:padding="@dimen/spacing_xl"
+                android:layout_marginBottom="@dimen/spacing_md">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -281,50 +278,58 @@
                         android:textColor="@color/text_secondary"
                         android:text="0 registros" />
                 </LinearLayout>
+        </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvExtras"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+        <!-- Dynamic Scrolled Content Area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/page_padding"
+            android:paddingEnd="@dimen/page_padding"
+            android:paddingBottom="@dimen/page_padding">
 
-                <LinearLayout
-                    android:id="@+id/emptyStateExtras"
-                    android:layout_width="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvExtras"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/emptyStateExtras"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_xl"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_stat_card"
-                    android:padding="@dimen/spacing_xl"
+                    android:text="💰"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Body"
+                    android:text="Sin ingresos extras este mes"
+                    android:textSize="@dimen/text_body"
+                    android:layout_marginTop="@dimen/spacing_sm" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PixelText.Small"
+                    android:text="Toca + para registrar un ingreso"
+                    android:textSize="@dimen/text_small"
                     android:gravity="center"
-                    android:minHeight="@dimen/btn_min_height"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💰"
-                        android:textSize="32sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/PixelText.Body"
-                        android:text="Sin ingresos extras este mes"
-                        android:textSize="@dimen/text_body"
-                        android:layout_marginTop="@dimen/spacing_sm" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/PixelText.Small"
-                        android:text="Toca + para registrar un ingreso"
-                        android:textSize="@dimen/text_small"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/spacing_xs" />
-                </LinearLayout>
-
+                    android:layout_marginTop="@dimen/spacing_xs" />
             </LinearLayout>
-        </ScrollView>
+
+        </LinearLayout>
     </LinearLayout>
 
     <!-- FAB -->

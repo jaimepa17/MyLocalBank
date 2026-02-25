@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/page_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/PixelText.Title"
+            android:text="SALDO DE APERTURA"
+            android:textSize="@dimen/text_title" />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="@color/gold"
+            android:layout_marginTop="@dimen/spacing_sm" />
+            
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="El saldo inicial establece la base de tu control. Ingresa el dinero con el que cuentas e indica qué gastos ya saldaste este mes y qué salarios ya cobraste."
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_secondary" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_padding">
+
+            <!-- Card: Monto Base y Fecha -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:layout_marginBottom="@dimen/spacing_lg">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. MONTO BASE Y FECHA"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace"
+                    android:layout_marginBottom="@dimen/spacing_sm"/>
+
+                <EditText
+                    android:id="@+id/etMontoApertura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="¿Cuánto dinero tienes en total hoy?"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/text_secondary"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_border_subtle" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/spacing_md">
+
+                    <Spinner
+                        android:id="@+id/spinnerMes"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:backgroundTint="@color/card_border_subtle" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAnio"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/spacing_sm"
+                        android:backgroundTint="@color/card_border_subtle" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Card: Gastos ya pagados -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:layout_marginBottom="@dimen/spacing_lg">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2. GASTOS FIJOS PAGADOS"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace"
+                    android:layout_marginBottom="4dp"/>
+                    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marca los gastos que YA PAGASTE con ese dinero este mes."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:layout_marginBottom="@dimen/spacing_md"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGastosApertura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+
+            <!-- Card: Ingresos ya percibidos -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_card"
+                android:padding="@dimen/spacing_md"
+                android:layout_marginBottom="@dimen/spacing_lg">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3. INGRESOS RECIBIDOS"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="monospace"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marca los salarios o ingresos fijos que YA RECIBISTE y son parte de ese saldo."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:layout_marginBottom="@dimen/spacing_md"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIngresosApertura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/page_padding"
+        android:background="@color/bg_main"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/btnCancelar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            android:background="@drawable/bg_button_secondary"
+            android:gravity="center"
+            android:text="CANCELAR"
+            android:textColor="@color/text_primary"
+            android:fontFamily="monospace"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnGuardar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:background="@drawable/bg_button_primary"
+            android:gravity="center"
+            android:text="CONFIRMAR APERTURA"
+            android:textColor="@color/bg_main"
+            android:fontFamily="monospace"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

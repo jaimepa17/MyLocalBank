@@ -20,8 +20,18 @@ import androidx.room.PrimaryKey
                                 parentColumns = ["id"],
                                 childColumns = ["categoriaId"],
                                 onDelete = ForeignKey.RESTRICT
+                        ),
+                        ForeignKey(
+                                entity = GastoFijo::class,
+                                parentColumns = ["id"],
+                                childColumns = ["gastoFijoId"],
+                                onDelete = ForeignKey.SET_NULL
                         )],
-        indices = [Index(value = ["tarjetaId"]), Index(value = ["categoriaId"])]
+        indices =
+                [
+                        Index(value = ["tarjetaId"]),
+                        Index(value = ["categoriaId"]),
+                        Index(value = ["gastoFijoId"])]
 )
 data class RegistroGasto(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -31,5 +41,6 @@ data class RegistroGasto(
         val tienda: String = "",
         val tarjetaId: Long? = null,
         val fecha: Long = System.currentTimeMillis(),
-        val categoriaId: Long = 1 // Default to "Otros" (ID 1)
+        val categoriaId: Long = 1, // Default to "Otros" (ID 1)
+        val gastoFijoId: Long? = null
 )
