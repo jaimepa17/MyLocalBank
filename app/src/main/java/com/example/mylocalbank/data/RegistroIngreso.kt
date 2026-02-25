@@ -13,8 +13,14 @@ import androidx.room.PrimaryKey
                                 parentColumns = ["id"],
                                 childColumns = ["categoriaId"],
                                 onDelete = androidx.room.ForeignKey.RESTRICT
+                        ),
+                        androidx.room.ForeignKey(
+                                entity = FuenteIngreso::class,
+                                parentColumns = ["id"],
+                                childColumns = ["fuenteId"],
+                                onDelete = androidx.room.ForeignKey.SET_NULL
                         )],
-        indices = [Index(value = ["categoriaId"])]
+        indices = [Index(value = ["categoriaId"]), Index(value = ["fuenteId"])]
 )
 data class RegistroIngreso(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,

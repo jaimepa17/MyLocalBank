@@ -54,7 +54,7 @@ class BalanceWidgetProvider : AppWidgetProvider() {
                 // Correct Flow usage
                 val ingresos = db.registroIngresoDao().getByDateRange(start, end).first()
                 val gastos = db.registroGastoDao().getByDateRange(start, end).first()
-                val saldo = db.saldoInicialDao().getSaldoInicial().first()
+                val saldo = db.saldoInicialDao().getSaldoInicial().first().firstOrNull()
 
                 val totalIngresos =
                         ingresos.sumOf { if (it.moneda == "USD") it.monto * 36.72 else it.monto }

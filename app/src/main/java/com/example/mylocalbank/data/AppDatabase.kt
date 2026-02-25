@@ -13,9 +13,10 @@ import androidx.room.RoomDatabase
                         GastoFijo::class,
                         RegistroGasto::class,
                         RegistroIngreso::class,
+                        // ...
                         Categoria::class,
                         SaldoInicial::class],
-        version = 14,
+        version = 17,
         exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -168,6 +169,66 @@ abstract class AppDatabase : RoomDatabase() {
                                 }
                         }
 
+                val MIGRATION_14_15 =
+                        object : androidx.room.migration.Migration(14, 15) {
+                                override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                                        // Insertar la categoría especial "Apertura"
+                                        db.execSQL(
+                                                "INSERT INTO categorias (nombre, icono, esDefault, activa, tipo) VALUES ('Apertura', '💵', 0, 0, 'AMBOS')"
+                                        )
+                                }
+                        }
+
+                val MIGRATION_15_16 =
+                        object : androidx.room.migration.Migration(15, 16) {
+                                override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                                        db.execSQL(
+                                                "ALTER TABLE `registros_gastos` RENAME TO `registros_gastos_old`"
+                                        )
+                                        db.execSQL(
+                                                "CREATE TABLE IF NOT EXISTS `registros_gastos` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `monto` REAL NOT NULL, `moneda` TEXT NOT NULL, `descripcion` TEXT NOT NULL, `tienda` TEXT NOT NULL, `tarjetaId` INTEGER, `fecha` INTEGER NOT NULL, `categoriaId` INTEGER NOT NULL DEFAULT 1, `gastoFijoId` INTEGER DEFAULT NULL, FOREIGN KEY(`tarjetaId`) REFERENCES `tarjetas`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL, FOREIGN KEY(`categoriaId`) REFERENCES `categorias`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT, FOREIGN KEY(`gastoFijoId`) REFERENCES `gastos_fijos`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_tarjetaId` ON `registros_gastos` (`tarjetaId`)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_categoriaId` ON `registros_gastos` (`categoriaId`)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_gastoFijoId` ON `registros_gastos` (`gastoFijoId`)"
+                                        )
+                                        db.execSQL(
+                                                "INSERT INTO `registros_gastos` (id, monto, moneda, descripcion, tienda, tarjetaId, fecha, categoriaId, gastoFijoId) SELECT id, monto, moneda, descripcion, tienda, tarjetaId, fecha, categoriaId, NULL FROM `registros_gastos_old`"
+                                        )
+                                        db.execSQL("DROP TABLE `registros_gastos_old`")
+                                }
+                        }
+
+                val MIGRATION_16_17 =
+                        object : androidx.room.migration.Migration(16, 17) {
+                                override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                                        db.execSQL(
+                                                "ALTER TABLE `registros_gastos` RENAME TO `registros_gastos_old_16`"
+                                        )
+                                        db.execSQL(
+                                                "CREATE TABLE IF NOT EXISTS `registros_gastos` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `monto` REAL NOT NULL, `moneda` TEXT NOT NULL, `descripcion` TEXT NOT NULL, `tienda` TEXT NOT NULL, `tarjetaId` INTEGER, `fecha` INTEGER NOT NULL, `categoriaId` INTEGER NOT NULL, `gastoFijoId` INTEGER, FOREIGN KEY(`tarjetaId`) REFERENCES `tarjetas`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL, FOREIGN KEY(`categoriaId`) REFERENCES `categorias`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT, FOREIGN KEY(`gastoFijoId`) REFERENCES `gastos_fijos`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_tarjetaId` ON `registros_gastos` (`tarjetaId`)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_categoriaId` ON `registros_gastos` (`categoriaId`)"
+                                        )
+                                        db.execSQL(
+                                                "CREATE INDEX IF NOT EXISTS `index_registros_gastos_gastoFijoId` ON `registros_gastos` (`gastoFijoId`)"
+                                        )
+                                        db.execSQL(
+                                                "INSERT INTO `registros_gastos` (id, monto, moneda, descripcion, tienda, tarjetaId, fecha, categoriaId, gastoFijoId) SELECT id, monto, moneda, descripcion, tienda, tarjetaId, fecha, categoriaId, gastoFijoId FROM `registros_gastos_old_16`"
+                                        )
+                                        db.execSQL("DROP TABLE `registros_gastos_old_16`")
+                                }
+                        }
+
                 @Volatile private var INSTANCE: AppDatabase? = null
 
                 fun getDatabase(context: Context): AppDatabase {
@@ -186,7 +247,10 @@ abstract class AppDatabase : RoomDatabase() {
                                                                 MIGRATION_10_11,
                                                                 MIGRATION_11_12,
                                                                 MIGRATION_12_13,
-                                                                MIGRATION_13_14
+                                                                MIGRATION_13_14,
+                                                                MIGRATION_14_15,
+                                                                MIGRATION_15_16,
+                                                                MIGRATION_16_17
                                                         )
                                                         .build()
                                         INSTANCE = instance
